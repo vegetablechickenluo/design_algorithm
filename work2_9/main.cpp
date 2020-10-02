@@ -23,13 +23,15 @@ int partition(int p, int r ,int x){       //以x为基准划分元素，小于x�
 }
 
 void Sort(int m, int n){
-    for(int flag = m; flag < n; flag++){
-        for(int i = n; i > flag; i--){
-            if(a[i] < a[i - 1]){
-                int t = a[i];
-                a[i] = a[i - 1];
-                a[i - 1] = t;
-            }
+    for (int i = m; i <= n; i++) {
+        int x = i;
+        for (int j = i + 1; j <= n; j++)
+            if (a[x] > a[j])
+                x = j;
+        if (x != i) {
+            int num = a[x];
+            a[x] = a[i];
+            a[i] = num;
         }
     }
 }
@@ -60,6 +62,7 @@ int main() {
     int finding = select(0, n - 1, n / 2);
     int count = 0;
     for(int i = 0; i < n; i++){
+        //cout << a[i] << " ";
         if(a[i] == finding)
             count++;
     }
