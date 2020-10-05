@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <algorithm>
 using namespace std;
 
 double find_middle(vector<double> a,vector<double> b){
@@ -24,10 +25,14 @@ double find_middle(vector<double> a,vector<double> b){
         double a1 = a[n / 2];
         double b1 = b[n / 2 - 1];
         if(a1 == b1)    return a1;
-        if(n == 2){
-            a.pop_back();
-            b.erase(b.begin());
-            return find_middle(a, b);
+        if(n == 2 && a1 > b1){
+            double m[4] = {0};
+            m[0] = a[0];
+            m[1] = a[1];
+            m[2] = b[0];
+            m[3] = b[1];
+            sort(m, m+3);
+            return (m[1] + m[2]) / 2;
         }
         if(a1 > b1){
             a.erase(a.begin() + n / 2 + 1, a.end());
@@ -53,6 +58,6 @@ int main() {
     cout << "请依次输入b数组的数字：";
     for(int i = 0; i < n ; i++)
         cin >> b[i];
-    cout << find_middle(a, b) << endl;
+    cout << "中位数为：" << find_middle(a, b) << endl;
     return 0;
 }
